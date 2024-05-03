@@ -26,30 +26,24 @@
       or
       hydromel@thinkpad:~/cosmosolvers$ virtualenv env (in linux)
    ```
-
-   Un environnement virtuel Python est une installation de Python isolée qui vous permet de gérer les dépendances d'un projet Django.
-   
-    Les commandes pour créer et activer un environnement virtuel diffèrent selon l'OS.
-
-   ### Windows
-   ```python
-   python -m venv .venv        # Création de l'environnement virtuel
-
-   .venv\Scripts\activate      # Activation de l'environnement virtuel
+5. active your virtual environment
+   for windows
+   ```bash
+      hydromel@thinkpad:~/cosmosolvers$ env\Scripts\activate
+      (env) hydromel@thinkpad:~/cosmosolvers$
    ```
-   ### Linux / macOS
-   ```python
-   python3 -m venv .venv       # Création de l'environnement virtuel
-
-   source .venv/bin/activate   # Activation de l'environnement virtuel
+   for linux and mac
+   ```bash
+      hydromel@thinkpad:~/cosmosolvers$ source env/bin/activate
+      or
+      hydromel@thinkpad:~/cosmosolvers$ . env/bin/activate
+      (env) hydromel@thinkpad:~/cosmosolvers$
    ```
-
-4. Installez les dépendances du projet en utilisant la commande suivante :
-
-```python
-pip install -r requirements.txt     # Installation des dépendances du projet
-```
-
+6. Install project dependance
+   ```bash
+      (env) hydromel@thinkpad:~/cosmosolvers$ cd transoil
+      (env) hydromel@thinkpad:~/cosmosolvers/transoil$ pip install -r requirements.txt
+   ```
 ## Configuration
 
 1. Créez un fichier `.env` à la racine du projet et ajoutez les variables 
