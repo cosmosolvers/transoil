@@ -15,7 +15,7 @@
    ```bash
       hydromel@thinkpad:~/cosmosolvers$ git clone https://github.com/cosmosolvers/transoil.git
    ```
-4. create virtual environment.
+4. create virtual environment<br>
    for windows
    ```bash
       hydromel@thinkpad:~/cosmosolvers$ python -m venv env
@@ -26,7 +26,7 @@
       or
       hydromel@thinkpad:~/cosmosolvers$ virtualenv env (in linux)
    ```
-5. active your virtual environment
+5. active your virtual environment<br>
    for windows
    ```bash
       hydromel@thinkpad:~/cosmosolvers$ env\Scripts\activate
