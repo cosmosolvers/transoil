@@ -5,17 +5,27 @@
 1. update your system
    ```bash
       hydromel@thinkpad:~$ sudo apt update
-      hydromel@thinkpad:~$ mkdir cosmosolvers && cd cosmosolvers
-      hydromel@thinkpad:~/cosmosolvers$
    ```
 2. create working directory
    ```bash
       hydromel@thinkpad:~$ mkdir cosmosolvers && cd cosmosolvers
       hydromel@thinkpad:~/cosmosolvers$
    ```
-2. Clonez le projet depuis le référentiel Git.
-
-3. Création d’un environnement virtuel et activez-le.
+3. Clone project
+   ```bash
+      hydromel@thinkpad:~/cosmosolvers$ git clone https://github.com/cosmosolvers/transoil.git
+   ```
+4. create virtual environment.
+   for windows
+   ```bash
+      hydromel@thinkpad:~/cosmosolvers$ python -m venv env
+   ```
+   for linux and mac
+   ```bash
+      hydromel@thinkpad:~/cosmosolvers$ python3 -m venv env
+      or
+      hydromel@thinkpad:~/cosmosolvers$ virtualenv env (in linux)
+   ```
 
    Un environnement virtuel Python est une installation de Python isolée qui vous permet de gérer les dépendances d'un projet Django.
    
