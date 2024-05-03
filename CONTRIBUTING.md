@@ -1,11 +1,18 @@
-# PROCÉDURE D'INSTALLATION ET DE MIS EN PLACE DU PROJET
+# CONTRIBUTING
 
-## 1. Installation
-1. Avant toute installation, il est important de mettre à jour votre système en exécutant la
-commande suivante : 
-```bash
-sudo apt update
-```
+## Install
+
+1. update your system
+   ```bash
+      hydromel@thinkpad:~$ sudo apt update
+      hydromel@thinkpad:~$ mkdir cosmosolvers && cd cosmosolvers
+      hydromel@thinkpad:~/cosmosolvers$
+   ```
+2. create working directory
+   ```bash
+      hydromel@thinkpad:~$ mkdir cosmosolvers && cd cosmosolvers
+      hydromel@thinkpad:~/cosmosolvers$
+   ```
 2. Clonez le projet depuis le référentiel Git.
 
 3. Création d’un environnement virtuel et activez-le.
