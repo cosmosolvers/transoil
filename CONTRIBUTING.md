@@ -78,13 +78,3 @@ python manage.py migrate
 #Lancez le serveur de développement en utilisant la commande suivante :
 python manage.py runserver
 ```
-
-## Utilisation
-L'application est accessible à l'adresse `http://127.0.0.1:8000/` 
-Après lancement du serveur. Pour créer un compte administrateur, exécutez la commande suivante :
-
-```python
-python manage.py createsuperuser
-```
-Une fois le super utilisateur créer vous pouvez accéder à la page d’administration à l’adresse
-`http://127.0.0.1:8000/admin/`
