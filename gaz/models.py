@@ -1,21 +1,44 @@
 from django.db import models
 
-class User(models.Model):
-    ROLE_CHOICE = [
+
+class BaseModel(models.Model):
+    id = models.CharField(max_length=128, primary_key=True, editable=False)
+    created_at = models.DateTimeField(auto_add_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+
+class User(BaseModel):
+    ROLE_CHOICE = (
         ("Admin","Admin"),
-    ]
-    firstname = models.CharField(max_length=150, verbose_name="Nom")
-    lastname = models.CharField(max_length=150, verbose_name="Prénom")
-    username = models.CharField(max_length=150, verbose_name="Nom d'Utilisateur")
-    phone_number1 = models.CharField(max_length=150, verbose_name="Numéro de téléphone 1")
-    phone_number2 = models.CharField(max_length=150, verbose_name="Numéro de téléphone 2")
-    role = models.CharField(max_length=50 ,choices=ROLE_CHOICE, verbose_name="Rôle")
-    location = models.OneToOneField(Location, on_delete=models.CASCADE, verbose_name="Location")
-    depot = models.OneToOneField(Depot, on_delete=models.CASCADE, verbose_name="Dépôt")
+        ("client", "Client"),
+        ("saleman", "Saleman")
+    )
+    
+    first_name = models.CharField(max_length=128)
+    last_name = models.CharField(max_length=128)
+    username = models.CharField(max_length=32)
+    phone_number1 = models.CharField(max_length=32)
+    phone_number2 = models.CharField(max_length=32)
+    role = models.CharField(max_length=16 ,choices=ROLE_CHOICE)
+    last_login = models.DateTimeField()
+    is_active = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    location = models.OneToOneField(Location, on_delete=models.PROTECT)
+    depot = models.OneToOneField(Depot, on_delete=models.PROTECT, blank=True, null=True)
 
     def save(self):
         return str(self.username)
-    
+
+    class Meta:
+        db_table = 'user'
+        ordering = ['-created_at']
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+
 
 class Depot(models.Model):
     STATE_CHOICE = [
