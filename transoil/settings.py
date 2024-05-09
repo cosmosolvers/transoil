@@ -29,8 +29,9 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',')
 
-#AUTH_USER_MODEL = 'gaz.User'
+AUTH_USER_MODEL = 'gaz.User'
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
