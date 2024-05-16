@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 class BaseModel(models.Model):
     id = models.CharField(max_length=128, primary_key=True, editable=False, default=uuid4)
-    created_at = models.DateTimeField(auto_add_now=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -117,7 +117,7 @@ class Qte(BaseModel):
 
 
 
-class Recharge(models.Model):
+class Recharge(BaseModel):
     STATE_CHOICE = [
         ("complet", "Complet"),
         ("partial", "Partial")
@@ -140,7 +140,7 @@ class Recharge(models.Model):
 
 
 
-class Transaction(models.Model):
+class Transaction(BaseModel):
     STATUS= (
         ("pending", "Pending"),
         ("completed", "Completed"),
@@ -150,11 +150,11 @@ class Transaction(models.Model):
     type = models.CharField(max_length=128)
     recharge = models.OneToOneField(Recharge, on_delete=models.PROTECT, related_name='transaction_recharge')
     phone = models.CharField(max_length=150)
-    fees = models.DecimalField(max_length = 10 ,decimal_places=2, default=0)
-    commission = models.DecimalField(max_length = 10 ,decimal_places=2, default=0)
-    total_amount = models.DecimalField(max_length = 10 ,decimal_places=2, default=0)
-    distance = models.DecimalField(max_length = 10 ,decimal_places=2, default=0)
-    status = models.CharField(max_length=8, choices=STATUS, default='pending')
+    fees = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    commission = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    distance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    status = models.CharField(max_length=16, choices=STATUS, default='pending')
 
     def save(self):
         return str(self.type) + str(self.total_amount)
@@ -166,7 +166,7 @@ class Transaction(models.Model):
         verbose_name_plural = 'Transactions'
 
 
-class Notification(models.Model):
+class Notification(BaseModel):
     
     STATUS = (
         ("read", "Read"),

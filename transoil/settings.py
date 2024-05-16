@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'True'
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',')
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gaz',
 ]
 
 MIDDLEWARE = [
@@ -101,8 +102,8 @@ DATABASES_SQLITE = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=os.environ.get('JWT_ACCESS_TOKEN_LIFETIME', 1)),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=os.environ.get('JWT_REFRESH_TOKEN_LIFETIME', 1)),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=int(os.environ.get('JWT_ACCESS_TOKEN_LIFETIME', 1))),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.environ.get('JWT_REFRESH_TOKEN_LIFETIME', 1))),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
