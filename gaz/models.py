@@ -45,13 +45,9 @@ class User(BaseModel, AbstractUser):
     phone_number1 = models.CharField(max_length=32)
     phone_number2 = models.CharField(max_length=32)
     
-    role = models.CharField(max_length=16 ,choices=ROLE_CHOICE)
-    location = models.OneToOneField(Location, on_delete=models.PROTECT, related_name='user_location')
-    img = models.ImageField(upload_to='user/', blank=True, null=True)
-
-    def save(self):
-        return str(self.username)
-
+    role = models.CharField(max_length=16, choices=ROLE_CHOICE, default='client')
+    location = models.OneToOneField(Location, on_delete=models.PROTECT, related_name='user_location', blank=True, null=True)
+    img = models.ImageField(upload_to='user', default='nouser.png')
 
     class Meta:
         db_table = 'user'

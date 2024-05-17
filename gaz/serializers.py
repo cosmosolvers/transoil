@@ -58,6 +58,9 @@ class SignInSerializer(serializers.ModelSerializer):
             'username': instance.username,
             'first_name': instance.first_name,
             'last_name': instance.last_name,
+            'last_login': instance.last_login,
+            'online': instance.is_active,
+            'authenticated': instance.is_authenticated,
             'phone': [
                 instance.phone_number1,
                 instance.phone_number2

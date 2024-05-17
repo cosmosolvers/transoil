@@ -18,9 +18,9 @@ class SignInViewSet(viewsets.ModelViewSet):
     serializer_class = SignInSerializer
     permission_classes = [permissions.AllowAny]
     
-    def authenticated(self, user: User):
+    def authenticated(self, request, user: User):
         
-        if not user.check_password(self.request.data['password']):
+        if not user.check_password(request.data.get('password')):
             return Response(
                 {
                     'status': status.HTTP_401_UNAUTHORIZED,
@@ -33,6 +33,8 @@ class SignInViewSet(viewsets.ModelViewSet):
         user.last_login = timezone.now()
         user.is_active = True
         user.save()
+        
+        user = User.objects.get(pk=user.id)
         
         serializer = SignInSerializer(user).data
         token = RefreshToken.for_user(user)
@@ -56,7 +58,7 @@ class SignInViewSet(viewsets.ModelViewSet):
         try:
             user = User.objects.get(username=request.data.get('username'))
             
-            return self.authenticated(user)
+            return self.authenticated(request, user)
         except Exception as e:
             return Response(
                 {

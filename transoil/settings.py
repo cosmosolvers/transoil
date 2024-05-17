@@ -13,10 +13,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -25,11 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'True'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',')
 
-AUTH_USER_MODEL = 'gaz.User'
+
 # Application definition
 
 
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'gaz',
 ]
 
@@ -74,29 +78,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'transoil.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
-DATABASES_POSTGRES = {
-    'ENGINE': os.environ.get('POSTGRES_ENGINE'),
-    'NAME': os.environ.get('POSTGRES_DB'),
-    'USER': os.environ.get('POSTGRES_USER'),
-    'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-    'HOST': os.environ.get('POSTGRES_HOST'),
-    'PORT': os.environ.get('POSTGRES_PORT'),
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,  # Nombre d'objets par page
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 
-DATABASES_SQLITE = {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': BASE_DIR / 'db.sqlite3',
-}
-
-
-DATABASES_SQLITE = {
-    'default': DATABASES_SQLITE if os.environ.get('DJANGO_DEBUG') == 'True' else DATABASES_POSTGRES,
-}
+AUTH_USER_MODEL = 'gaz.User'
 
 
 
@@ -141,6 +136,30 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
+
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+
+DATABASES_POSTGRES = {
+    'ENGINE': os.environ.get('POSTGRES_ENGINE'),
+    'NAME': os.environ.get('POSTGRES_DB'),
+    'USER': os.environ.get('POSTGRES_USER'),
+    'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+    'HOST': os.environ.get('POSTGRES_HOST'),
+    'PORT': os.environ.get('POSTGRES_PORT'),
+}
+
+
+DATABASES_SQLITE = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': BASE_DIR / 'db.sqlite3',
+}
+
+
+DATABASES = {
+    'default': DATABASES_SQLITE if DEBUG else DATABASES_POSTGRES,
+}
 
 
 
