@@ -149,7 +149,7 @@ class QteSerializer(serializers.ModelSerializer):
 class RechargeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recharge
-        exclude = ('user', 'gaz')
+        exclude = ('user', 'gaz', 'amount')
     
     def to_representation(self, instance):
         return {

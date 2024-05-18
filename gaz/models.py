@@ -19,9 +19,6 @@ class Location(BaseModel):
     lat = models.DecimalField(max_digits=8 ,decimal_places=2, default=0)
     street = models.CharField(max_length=16)
 
-    def save(self):
-        return str(self.street) + str(self.longitude) + str(self.latitude)
-    
     class Meta:
         db_table = 'Location'
         ordering = ['-created_at']
@@ -86,9 +83,6 @@ class Gaz(BaseModel):
     price = models.DecimalField(max_digits=10 ,decimal_places=2, default=0)
     img = models.ImageField(upload_to='gaz/', blank=True, null=True)
 
-    def save(self):
-        str(self.type) + str(self.size) + str(self.price)
-    
     class Meta:
         db_table = 'gaz'
         ordering = ['-created_at']
@@ -124,9 +118,6 @@ class Recharge(BaseModel):
     state = models.CharField(max_length=8, choices=STATE_CHOICE)
     amount = models.DecimalField(max_digits=10 ,decimal_places=2, default=0)
 
-    def save(self):
-        return str(self.user.username) + str(self.gaz) + str(self.amount)
-    
     class Meta:
         db_table = 'recharge'
         ordering = ['-created_at']
